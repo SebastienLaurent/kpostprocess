@@ -48,7 +48,7 @@ func buildSidecar() map[string]interface{} {
 
 	sidecar["name"] = "sideshell"
 	sidecar["image"] = "sebastienlaurent/sideshell:latest"
-	sidecar["imagePullPolicy"] = "always"
+	sidecar["imagePullPolicy"] = "Always"
 
 	return sidecar
 }

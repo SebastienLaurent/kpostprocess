@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: kpostprocess-plugin
+spec:
+  version: v1.0
+  init:
+    command: [ "/bin/sh", "-c" ]
+    args: [ "/helm dependency build || true"] 
+  generate:
+    command: [ "sh", "-c" ]
+    args: [ "/helm template . --name-template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE --include-crds > all.yaml && /kustomize build | /kpostprocess"]
+  discover:
+    fileName: "./descriptor.json"
+  allowConcurrency: true
+  lockRepo: false
+
